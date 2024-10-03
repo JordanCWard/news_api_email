@@ -3,9 +3,12 @@ from send_email import email_function
 
 # https://newsapi.org/
 
+topic = "tesla"
+
 api_key = "0104be7090ad48f9ad65a4ca468f544a"
-url = "https://newsapi.org/v2/everything?q=tesla&from=2024-09-02&" \
-      "sortBy=publishedAt&apiKey=0104be7090ad48f9ad65a4ca468f544a"
+url = "https://newsapi.org/v2/everything?" \
+      f"q={topic}&sortBy=publishedAt&" \
+      "apiKey=0104be7090ad48f9ad65a4ca468f544a&language=en"
 
 # Make a request
 website = requests.get(url)
@@ -13,16 +16,15 @@ website = requests.get(url)
 # Get a dictionary with the data
 content = website.json()
 
-# Write all titles and descriptions to a string
-all_text = ""
-for article in content["articles"]:
-    all_text = all_text + article["title"] + '\n' \
-               + str(article["description"]) + 2*'\n'
+# Combine 20 news articles into a string to send in an email
+all_text = "Subject: Today's News"
+for article in content["articles"][0:20]:
+    all_text = all_text + "\n" + article["title"] \
+               + '\n' + str(article["description"]) + "\n" \
+               + article["url"] + 2*'\n'
 
-# Remove extra lines and spaces
-remove_new_lines = all_text.strip()
 # Encode the code
-encoded_text = remove_new_lines.encode("utf-8")
+all_text = all_text.encode("utf-8")
 
 # Send the string in an email
-email_function(encoded_text)
+email_function(all_text)
