@@ -1,7 +1,7 @@
 import requests
 from send_email import email_function
 
-# https://newsapi.org/
+# Link for News API: https://newsapi.org/
 
 topic = "tesla"
 
@@ -13,7 +13,7 @@ url = "https://newsapi.org/v2/everything?" \
 # Make a request
 website = requests.get(url)
 
-# Get a dictionary with the data
+# Get a JSON dictionary with the data
 content = website.json()
 
 # Combine 20 news articles into a string to send in an email
@@ -23,7 +23,7 @@ for article in content["articles"][0:20]:
                + '\n' + str(article["description"]) + "\n" \
                + article["url"] + 2*'\n'
 
-# Encode the code
+# Encode the articles to a readable format
 all_text = all_text.encode("utf-8")
 
 # Send the string in an email
