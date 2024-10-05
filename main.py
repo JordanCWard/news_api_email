@@ -10,10 +10,8 @@ url = "https://newsapi.org/v2/everything?" \
       f"q={topic}&sortBy=publishedAt&" \
       "apiKey=0104be7090ad48f9ad65a4ca468f544a&language=en"
 
-# Make a request
-website = requests.get(url)
-
 # Get a JSON dictionary with the data
+website = requests.get(url)
 content = website.json()
 
 # Combine 20 news articles into a string to send in an email
