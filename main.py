@@ -17,9 +17,8 @@ content = website.json()
 # Combine 20 news articles into a string to send in an email
 all_text = "Subject: Today's News"
 for article in content["articles"][0:20]:
-    all_text = all_text + "\n" + article["title"] \
-               + '\n' + str(article["description"]) + "\n" \
-               + article["url"] + 2*'\n'
+    all_text = all_text + "\n" + article["title"] + '\n' + \
+               str(article["description"]) + "\n" + article["url"] + 2*'\n'
 
 # Encode the articles to a readable format
 all_text = all_text.encode("utf-8")
